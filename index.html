@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: antiquewhite;">
+    <section style="height:100vh;position:relative;display:flex;justify-content:center;align-items:center">
+        <div style="background-color: white;width:25vw;height:25vh;border-radius:10px;text-align:center">
+            <h1>CEK KURS MATA UANG DUNIA</h1>
+            <div style="display: flex;justify-content:space-around">
+                <select id="dari">
+                    <option value="" selected>Pilih dari</option>
+                    <option value="CAD">CAD</option>
+                    <option value="HKD">HKD</option>
+                    <option value="ISK">ISK</option>
+                    <option value="PHP">PHP</option>
+                    <option value="DKK">DKK</option>
+                    <option value="HUF">HUF</option>
+                    <option value="CZK">CZK</option>
+                    <option value="AUD">AUD</option>
+                    <option value="RON">RON</option>
+                    <option value="SEK">SEK</option>
+                    <option value="IDR">IDR</option>
+                    <option value="INR">INR</option>
+                    <option value="BRL">BRL</option>
+                    <option value="RUB">RUB</option>
+                    <option value="HRK">HRK</option>
+                    <option value="JPY">JPY</option>
+                    <option value="THB">THB</option>
+                    <option value="CHF">CHF</option>
+                    <option value="SGD">SGD</option>
+                    <option value="PLN">PLN</option>
+                    <option value="BGN">BGN</option>
+                    <option value="TRY">TRY</option>
+                    <option value="CNY">CNY</option>
+                    <option value="NOK">NOK</option>
+                    <option value="NZD">NZD</option>
+                    <option value="ZAR">ZAR</option>
+                    <option value="USD">USD</option>
+                    <option value="MXN">MXN</option>
+                    <option value="ILS">ILS</option>
+                    <option value="GBP">GBP</option>
+                    <option value="KRW">KRW</option>
+                    <option value="MYR">MYR</option>
+                </select>
+
+                <select id="ke">
+                    <option value="" selected>Pilih ke</option>
+                    <option value="CAD">CAD</option>
+                    <option value="HKD">HKD</option>
+                    <option value="ISK">ISK</option>
+                    <option value="PHP">PHP</option>
+                    <option value="DKK">DKK</option>
+                    <option value="HUF">HUF</option>
+                    <option value="CZK">CZK</option>
+                    <option value="AUD">AUD</option>
+                    <option value="RON">RON</option>
+                    <option value="SEK">SEK</option>
+                    <option value="IDR">IDR</option>
+                    <option value="INR">INR</option>
+                    <option value="BRL">BRL</option>
+                    <option value="RUB">RUB</option>
+                    <option value="HRK">HRK</option>
+                    <option value="JPY">JPY</option>
+                    <option value="THB">THB</option>
+                    <option value="CHF">CHF</option>
+                    <option value="SGD">SGD</option>
+                    <option value="PLN">PLN</option>
+                    <option value="BGN">BGN</option>
+                    <option value="TRY">TRY</option>
+                    <option value="CNY">CNY</option>
+                    <option value="NOK">NOK</option>
+                    <option value="NZD">NZD</option>
+                    <option value="ZAR">ZAR</option>
+                    <option value="USD">USD</option>
+                    <option value="MXN">MXN</option>
+                    <option value="ILS">ILS</option>
+                    <option value="GBP">GBP</option>
+                    <option value="KRW">KRW</option>
+                    <option value="MYR">MYR</option>
+                </select>
+            </div>
+            <div style="display: flex;justify-content:center;margin-top:30px">
+                <button onclick="check()" style="display: block;width:80%">CEK KURS SAAT INI</button>
+            </div>
+            <div style="display: flex;justify-content:center;margin-top:2px">
+                <input type="text" id="output" style="margin-top: 30px;display:block;width:80%;padding:10px" placeholder="Hasil Kurs" readonly/>
+            </div>
+        </div>
+    </section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script>
+    const check = () => {   
+        let from = document.getElementById("dari").value;
+        let to = document.getElementById("ke").value;
+        let outpt = document.getElementById("output")   
+        if(from === "" || to === ""){
+            return alert("Pastikan field terisi")
+        }
+
+        if(from === to){
+            return alert("Pastikan field berbeda")
+        }
+
+        $.ajax({
+            url: `https://api.exchangeratesapi.io/latest?base=${from}`,
+            method:`get`,
+            success:function(data){
+                let response = data.rates[to];
+                outpt.value = `${to}` + " " + (Math.round(response * 100)/100).toFixed(2);
+            }
+        })
+
+    }
+</script>
+</body>
+</html>
